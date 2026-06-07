@@ -1,26 +1,71 @@
+/* 
+ * globals.css
+ * -----------
+ * Global styles and Tailwind CSS configuration.
+ * Uses Tailwind v4's @theme directive to define custom design tokens.
+ * Theme colors switch between light and dark using CSS custom properties.
+ */
+
 @import "tailwindcss";
 
+/* ---- Light mode tokens (default) ---- */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #111111;
+  --accent: #2563eb;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --card: #fafafa;
 }
 
+/* ---- Dark mode tokens ---- */
+.dark {
+  --background: #0f0f0f;
+  --foreground: #efefef;
+  --accent: #60a5fa;
+  --muted: #9ca3af;
+  --border: #262626;
+  --card: #171717;
+}
+
+/* ---- Register tokens with Tailwind v4 ---- */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-card: var(--card);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---- Base styles ---- */
+html {
+  scroll-behavior: smooth;
+  font-size: 100%;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Prevent flash of wrong theme */
+html.dark {
+  color-scheme: dark;
+}
+
+/* ---- Selection highlight ---- */
+::selection {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+/* ---- Focus ring for accessibility ---- */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
